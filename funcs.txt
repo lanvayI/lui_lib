@@ -1,0 +1,14 @@
+- lui_core
+void* lc_malloc(size_t size);
+widget* lc_widget_init(l_box area);
+void lc_free_widget(widget** widgetPtr);
+container* lc_container_init(l_box area); // widgets and backgroud color added later
+int lc_container_insert_widget(container* containerPtr, widget* widgetPtr);
+void lc_free_container(container** containerPtr);
+
+- lui_draw
+void l_draw_box(l_box* box,Color color);
+void l_draw_widget(widget* widgetPtr);
+void l_draw_widget_with_param(l_box* box, Color color, int startX, int startY); //draw widget but, add startx and starty to lbox x and y variables
+void l_draw_container(container *containerPtr);
+void l_draw_container_widgets(container* containerPtr);

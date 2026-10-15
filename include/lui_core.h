@@ -1,6 +1,10 @@
 #ifndef LUI_CORE_H
 #define LUI_CORE_H
 
+int puts(const char *_Str);
+#define LUI_DEBUG 1 // 1 to debug text
+#define DEB(x) (LUI_DEBUG ? puts(x) : 0)
+
 typedef struct Color; //just for raylib implemation
 
 typedef struct l_box{
@@ -32,6 +36,7 @@ widget* lc_widget_init(l_box area);
 void lc_free_widget(widget** widgetPtr);
 
 container* lc_container_init(l_box area); // widgets and backgroud color added later
+int lc_container_insert_widget(container* containerPtr, widget* widgetPtr);
 void lc_free_container(container** containerPtr);
 
 #endif

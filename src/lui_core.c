@@ -3,9 +3,6 @@
 #include <raylib.h>
 #include "../include/lui_core.h"
 
-#define LUI_DEBUG 1 // 1 to debug text
-#define DEB(x) (LUI_DEBUG ? puts(x) : 0)
-
 Color defaultColor = GRAY; //later make go invisible
 int defaultWidgetsListSize = 5;
 
@@ -49,6 +46,16 @@ container* lc_container_init(l_box area){
     DEB("lui_core : lui_core_container_init : sucess");
     return co;
 }
+
+int lc_container_insert_widget(container* containerPtr, widget* widgetPtr){
+    if(containerPtr == NULL){DEB("lui_core : lc_container_insert_widget : container ptr null"); return 0;}
+    if(widgetPtr == NULL){DEB("lui core : lc_container_insert_widget : widget ptr null"); return 0;}
+
+    containerPtr->widgets[containerPtr->n_widgets++] = widgetPtr;
+    DEB("lui core : lc_container_insert_widget : sucess");
+    return 1;
+}
+
 
 void lc_free_container(container** containerPtr){
     if(containerPtr==NULL){return;}
