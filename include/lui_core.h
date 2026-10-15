@@ -14,29 +14,34 @@ typedef struct l_box{
 typedef struct{
     l_box box;
     Color background_color;
-}widget;
+}l_widget;
 
 typedef struct{
     l_box box;
     Color background_color;
-    widget** widgets;
+    l_widget** widgets;
     int n_widgets, max_widgets;
-}container;
+}l_container;
 
 typedef struct{
     l_box area;
-    container **containers;
+    Color background_color;
+    l_container **containers;
     int n_containers,max_containers;
 }l_windown;
 
 
 void* lc_malloc(size_t size);
 
-widget* lc_widget_init(l_box area);
-void lc_free_widget(widget** widgetPtr);
+l_widget* lc_widget_init(l_box area);
+void lc_free_widget(l_widget** widgetPtr);
 
-container* lc_container_init(l_box area); // widgets and backgroud color added later
-int lc_container_insert_widget(container* containerPtr, widget* widgetPtr);
-void lc_free_container(container** containerPtr);
+l_container* lc_container_init(l_box area); // widgets and backgroud color added later
+int lc_container_insert_widget(l_container* containerPtr, l_widget* widgetPtr);
+void lc_free_container(l_container** containerPtr);
+
+l_windown* lc_windown_init(l_box area);
+int lc_windown_insert_container(l_windown* windownPtr, l_container* l_containerPtr);
+void lc_free_windown(l_windown** windownPtr);
 
 #endif
