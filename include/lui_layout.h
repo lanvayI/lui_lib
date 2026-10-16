@@ -3,7 +3,9 @@
 
 #include "lui_types.h"
 
-void lt_align_center_boxs(l_box* source, l_box* toBeAligned);
+typedef enum{TOP,BOTTOM,LEFT,RIGHT,CENTER}AlignmentType;
+
+void lt_align_box(l_box* source, l_box* toBeAligned,AlignmentType AlignmentType);
 void lt_align_center(l_windown* windownPtr);
 
 int lt_is_widget_inside_container(l_container* containerPtr, l_widget* widgetPtr);

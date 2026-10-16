@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <raylib.h>
 #include "../include/lui_core.h"
 #include "../include/lui_layout.h"
@@ -36,15 +37,48 @@ int lt_is_container_inside_windown(l_windown* windownPtr, l_container* container
     return 0;
 }
 
-void lt_align_center_boxs(l_box* source, l_box* toBeAligned){
+void lt_align_box(l_box* source, l_box* toBeAligned,AlignmentType Align){
     if(source==NULL){DEB("lui_layout : lt_align_center_boxs : source ptr null"); return;}
     if(toBeAligned==NULL){DEB("lui_layout : lt_align_center_boxs : toBeAligned ptr null"); return;}
     
-    int xCenter = (source->x + source->w)/2;
-    int yCenter = (source->y + source->h)/2;
+    int xCenter = 0;
+    int yCenter = 0;
 
-    toBeAligned->x = xCenter - (toBeAligned->w /2);
-    toBeAligned->y = yCenter - (toBeAligned->h /2);
+    switch (Align){
+    case TOP:
+        xCenter = source->x + source->w/2;
+        toBeAligned->x = xCenter - toBeAligned->w /2;
+        toBeAligned->y = source->y;
+        break;
+    
+    case BOTTOM:
+        xCenter = (source->x + source->w)/2;
+        toBeAligned->x = xCenter - toBeAligned->w /2;
+        toBeAligned->y = source->y + source->h - toBeAligned->h;
+        break;
+
+    case LEFT:
+        yCenter = (source->y + source->h)/2;
+        toBeAligned->y = yCenter - toBeAligned->h /2;
+        toBeAligned->x = source->x;
+        break;
+
+    case RIGHT:
+        yCenter = source->y + source->h/2;
+        toBeAligned->y = yCenter - toBeAligned->h /2;
+        toBeAligned->x = source->x + source->w - toBeAligned->w;
+        break;
+
+    case CENTER:
+        xCenter = source->x + source->w/2;
+        yCenter = source->y + source->h/2;
+        toBeAligned->x = xCenter - toBeAligned->w /2;
+        toBeAligned->y = yCenter - toBeAligned->h /2;
+
+        break;
+    default:
+        break;
+    }
 }
 
 void lt_align_center(l_windown* windownPtr){
@@ -55,6 +89,6 @@ void lt_align_center(l_windown* windownPtr){
     for(int i=0; i < windownPtr->n_containers; i++){
         contPtr = windownPtr->containers[i];
         if(contPtr==NULL){continue;}
-        lt_align_center_boxs(&windownPtr->area,&contPtr->box);
+        lt_align_box(&windownPtr->area,&contPtr->box,BOTTOM);
     }
 }

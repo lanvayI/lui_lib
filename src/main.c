@@ -12,36 +12,32 @@ int main(){
     int winYs = 480;
 
     InitWindow(winXs,winYs,"LUI_LIB");
-    l_box caixa = {100,100,200,150};
-    l_windown* win = lc_windown_init((l_box){20,20,600,440});
+    l_box caixa = {0,0,200,200};
+    l_windown* win = lc_windown_init((l_box){0,0,500,500});
     l_container* cont = lc_container_init(caixa);
     l_widget* w = lc_widget_init((l_box){0,0,50,50});
-    l_widget* w2 = lc_widget_init((l_box){80,95,50,50});
     w->background_color = BLUE;
 
     lc_windown_insert_container(win,cont);
     lc_container_insert_widget(cont,w);
     //lc_container_insert_widget(cont,w2);
     
-    while (!WindowShouldClose()){
-        if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
-            cont->box.x = GetMouseX();
-            cont->box.y = GetMouseY();
-        }
+    lt_align_box(&win->area,&cont->box,TOP);
+    lt_align_box(&cont->box,&w->box,TOP);
 
-        if(IsMouseButtonDown(MOUSE_BUTTON_RIGHT)){
-            w->box.x = GetMouseX();
-            w->box.y = GetMouseY();
-        }
-        if(lt_is_widget_inside_container(cont,w)){
-            puts("sim");
-        }else{puts("nao");}
+    l_box box1 = cont->box;
+    printf("container x %d y %d w %d h %d\n",box1.x,box1.y,box1.w,box1.h);
+    box1 = w->box;
+    printf("widget x %d y %d w %d h %d\n",box1.x,box1.y,box1.w,box1.h);
+    while (!WindowShouldClose()){
         ///////////
         BeginDrawing();
         ClearBackground(BLACK);
 
-        l_draw_windown_all_childs(win);
-        lt_align_center(win);
+        //l_draw_windown_all_childs(win);
+        l_draw_windown(win);
+        l_draw_container(cont);
+        l_draw_widget(w);
 
         EndDrawing();
     }
