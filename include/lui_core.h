@@ -5,31 +5,7 @@ int puts(const char *_Str);
 #define LUI_DEBUG 1 // 1 to debug text
 #define DEB(x) (LUI_DEBUG ? puts(x) : 0)
 
-typedef struct Color; //just for raylib implemation
-
-typedef struct l_box{
-    int x,y,w,h;
-}l_box;
-
-typedef struct{
-    l_box box;
-    Color background_color;
-}l_widget;
-
-typedef struct{
-    l_box box;
-    Color background_color;
-    l_widget** widgets;
-    int n_widgets, max_widgets;
-}l_container;
-
-typedef struct{
-    l_box area;
-    Color background_color;
-    l_container **containers;
-    int n_containers,max_containers;
-}l_windown;
-
+#include "lui_types.h"
 
 void* lc_malloc(size_t size);
 

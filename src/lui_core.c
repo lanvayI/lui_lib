@@ -55,6 +55,7 @@ int lc_container_insert_widget(l_container* containerPtr, l_widget* widgetPtr){
     if(widgetPtr == NULL){DEB("lui core : lc_container_insert_widget : widget ptr null"); return 0;}
 
     containerPtr->widgets[containerPtr->n_widgets++] = widgetPtr;
+    widgetPtr->parent = containerPtr;
     DEB("lui core : lc_container_insert_widget : sucess");
     return 1;
 }
@@ -91,6 +92,7 @@ int lc_windown_insert_container(l_windown* windownPtr, l_container* l_containerP
     if(l_containerPtr == NULL){DEB("lui core : lc_windown_insert_container : container ptr null"); return 0;}
 
     windownPtr->containers[windownPtr->n_containers++] = l_containerPtr;
+    l_containerPtr->parent = windownPtr;
     DEB("lui core : lc_windown_insert_container : sucess");
     return 1;
 }
